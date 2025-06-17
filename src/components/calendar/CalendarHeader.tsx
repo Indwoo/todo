@@ -11,7 +11,7 @@ const CalendarHeader = () => {
 
   return (
     <div className="grid grid-cols-7">
-      {thisWeek.map((date, i) => (
+      {thisWeek.map((date) => (
         <div className="text-center font-bold py-2 border bg-gray-100">
           {format(date, 'd')}
           {format(date, 'EEE', { locale: ko })}

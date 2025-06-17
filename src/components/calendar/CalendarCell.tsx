@@ -1,5 +1,5 @@
 const CalendarCell = () => {
-  return <div className="border border-gray-300 h-10">셀</div>;
+  return <div className="border border-gray-300 h-20 w-20"></div>;
 };
 
 export default CalendarCell;
