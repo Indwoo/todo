@@ -16,7 +16,6 @@ function Calendar() {
       <div className="col-start-2 col-span-7 row-start-1">
         <CalendarHeader />
       </div>
-
       {timeLabels.map((time, index) => (
         <div
           key={index}
@@ -26,7 +25,6 @@ function Calendar() {
           {time}
         </div>
       ))}
-
       {Array.from({ length: 7 }).map((_, dayIndex) =>
         Array.from({ length: 20 }).map((_, cellIndex) => (
           <CalendarCell
