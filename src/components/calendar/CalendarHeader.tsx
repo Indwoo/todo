@@ -1,5 +1,5 @@
 import { addDays, format, getDate, startOfWeek } from 'date-fns';
-import ko from 'date-fns/locale/ko';
+import { ko } from 'date-fns/locale/ko';
 
 const CalendarHeader = () => {
   const datefns = new Date();
@@ -13,7 +13,8 @@ const CalendarHeader = () => {
     <div className="grid grid-cols-7">
       {thisWeek.map((date, i) => (
         <div className="text-center font-bold py-2 border bg-gray-100">
-          {format(date, 'd')}일{format(date, 'EEE', { locale: ko.default })}
+          {format(date, 'd')}
+          {format(date, 'EEE', { locale: ko })}
         </div>
       ))}
     </div>
