@@ -17,9 +17,19 @@ export default function TodoModal({ onClose }: Props) {
   const [groupid, setGroup] = useState('');
   const [start, setStart] = useState('');
   const [end, setEnd] = useState('');
+  const [error, checkError] = useState('');
 
   const submitTodo = () => {
-    if (!title || !start || !end) return;
+    checkError('');
+
+    if (!title || !start || !end) {
+      checkError('모든 항목을 입력해 주세요!');
+      return;
+    }
+    if (new Date(start) >= new Date(end)) {
+      checkError('유효하지 않은 범위입니다!');
+      return;
+    }
     addTodo({
       id: nanoid(),
       groupid,
@@ -34,6 +44,7 @@ export default function TodoModal({ onClose }: Props) {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white p-6 rounded shadow-lg w-80">
         <h3 className="text-lg font-bold mb-4">할 일 추가</h3>
+        {error && <div className="text-red-800 font-bold">{error}</div>}
         <input
           type="text"
           placeholder="할 일 제목"
