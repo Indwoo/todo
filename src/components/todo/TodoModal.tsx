@@ -4,6 +4,13 @@ import { nanoid } from 'nanoid';
 
 type Props = { onClose: () => void };
 
+const categories = [
+  { id: 'study', name: '공부', color: 'bg-blue-300' },
+  { id: 'workout', name: '운동', color: 'bg-green-300' },
+  { id: 'book', name: '독서', color: 'bg-yellow-300' },
+  { id: 'etc', name: '기타', color: 'bg-gray-200' },
+];
+
 export default function TodoModal({ onClose }: Props) {
   const addTodo = useTodoStore((s) => s.addTodo);
   const [title, setTitle] = useState('');
@@ -34,13 +41,18 @@ export default function TodoModal({ onClose }: Props) {
           onChange={(e) => setTitle(e.target.value)}
           className="w-full border p-2 mb-2"
         />
-        <input
-          type="text"
-          placeholder="카테고리"
+        <select
           value={groupid}
           onChange={(e) => setGroup(e.target.value)}
           className="w-full border p-2 mb-2"
-        />
+        >
+          <option>카테고리 선택</option>
+          {categories.map((category) => (
+            <option key={category.id} value={category.id}>
+              {category.name}
+            </option>
+          ))}
+        </select>
         <input
           type="datetime-local"
           value={start}

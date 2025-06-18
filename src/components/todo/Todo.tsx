@@ -3,6 +3,13 @@ import { useTodoStore } from '../../store/todoStore';
 import TodoModal from './TodoModal';
 import TodoItem from './TodoItem';
 
+const categoryColor: Record<string, string> = {
+  study: 'bg-blue-100',
+  workout: 'bg-green-100',
+  book: 'bg-yellow-100',
+  etc: 'bg-gray-100',
+};
+
 function Todo() {
   const [open, setOpen] = useState(false);
   const todos = useTodoStore((state) => state.todo);
@@ -21,7 +28,11 @@ function Todo() {
 
       <ul className="space-y-2">
         {todos.map((todo) => (
-          <TodoItem key={todo.id} todo={todo} />
+          <TodoItem
+            key={todo.id}
+            todo={todo}
+            color={categoryColor[todo.groupid] || 'bg-white'}
+          />
         ))}
       </ul>
 
