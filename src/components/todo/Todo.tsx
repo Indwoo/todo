@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useTodoStore } from '../../store/todoStore';
 import TodoModal from './TodoModal';
+import TodoItem from './TodoItem';
 
 function Todo() {
   const [open, setOpen] = useState(false);
@@ -20,9 +21,7 @@ function Todo() {
 
       <ul className="space-y-2">
         {todos.map((todo) => (
-          <li key={todo.id} className="p-2 bg-gray-100 rounded text-sm">
-            {todo.title}
-          </li>
+          <TodoItem key={todo.id} todo={todo} />
         ))}
       </ul>
 
