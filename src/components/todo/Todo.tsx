@@ -1,5 +1,34 @@
+import { useState } from 'react';
+import { useTodoStore } from '../../store/todoStore';
+import TodoModal from './TodoModal';
+
 function Todo() {
-  return <div>Todo</div>;
+  const [open, setOpen] = useState(false);
+  const todos = useTodoStore((state) => state.todo);
+
+  return (
+    <div>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-lg font-bold">오늘의 할 일</h2>
+        <button
+          onClick={() => setOpen(true)}
+          className="text-white bg-blue-500 px-2 py-1 rounded"
+        >
+          +
+        </button>
+      </div>
+
+      <ul className="space-y-2">
+        {todos.map((todo) => (
+          <li key={todo.id} className="p-2 bg-gray-100 rounded text-sm">
+            {todo.title}
+          </li>
+        ))}
+      </ul>
+
+      {open && <TodoModal onClose={() => setOpen(false)} />}
+    </div>
+  );
 }
 
 export default Todo;

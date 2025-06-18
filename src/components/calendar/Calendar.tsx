@@ -27,13 +27,7 @@ function Calendar() {
       ))}
       {Array.from({ length: 7 }).map((_, dayIndex) =>
         Array.from({ length: 20 }).map((_, cellIndex) => (
-          <CalendarCell
-            key={`${dayIndex}-${cellIndex}`}
-            style={{
-              gridColumnStart: dayIndex + 2,
-              gridRowStart: cellIndex + 2,
-            }}
-          />
+          <CalendarCell key={`${dayIndex}-${cellIndex}`} />
         )),
       )}
     </div>
