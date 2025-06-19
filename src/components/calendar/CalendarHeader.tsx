@@ -1,4 +1,4 @@
-import { addDays, format, getDate, startOfWeek } from 'date-fns';
+import { addDays, format, startOfWeek } from 'date-fns';
 import { ko } from 'date-fns/locale/ko';
 
 const CalendarHeader = () => {

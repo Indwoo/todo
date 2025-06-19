@@ -1,92 +1,39 @@
 import { useState } from 'react';
-import { useTodoStore } from '../../store/todoStore';
-import { nanoid } from 'nanoid';
+import TodoHour from './TodoHour';
 
-type Props = { onClose: () => void };
+export default function TodoModal({
+  isOpen,
+  onClose,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+}) {
+  if (!isOpen) return null;
 
-const categories = [
-  { id: 'study', name: '공부', color: 'bg-blue-300' },
-  { id: 'workout', name: '운동', color: 'bg-green-300' },
-  { id: 'book', name: '독서', color: 'bg-yellow-300' },
-  { id: 'etc', name: '기타', color: 'bg-gray-200' },
-];
-
-export default function TodoModal({ onClose }: Props) {
-  const addTodo = useTodoStore((s) => s.addTodo);
-  const [title, setTitle] = useState('');
-  const [groupid, setGroup] = useState('');
-  const [start, setStart] = useState('');
-  const [end, setEnd] = useState('');
-  const [error, checkError] = useState('');
-
-  const submitTodo = () => {
-    checkError('');
-
-    if (!title || !start || !end) {
-      checkError('모든 항목을 입력해 주세요!');
-      return;
-    }
-    if (new Date(start) >= new Date(end)) {
-      checkError('유효하지 않은 범위입니다!');
-      return;
-    }
-    addTodo({
-      id: nanoid(),
-      groupid,
-      title,
-      start,
-      end,
-    });
-    onClose();
-  };
+  const today = Date();
+  const [isHourOpen, setIsHourOpen] = useState(false);
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded shadow-lg w-80">
-        <h3 className="text-lg font-bold mb-4">할 일 추가</h3>
-        {error && <div className="text-red-800 font-bold">{error}</div>}
-        <input
-          type="text"
-          placeholder="할 일 제목"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className="w-full border p-2 mb-2"
-        />
-        <select
-          value={groupid}
-          onChange={(e) => setGroup(e.target.value)}
-          className="w-full border p-2 mb-2"
-        >
-          <option>카테고리 선택</option>
-          {categories.map((category) => (
-            <option key={category.id} value={category.id}>
-              {category.name}
-            </option>
-          ))}
-        </select>
-        <input
-          type="datetime-local"
-          value={start}
-          onChange={(e) => setStart(e.target.value)}
-          className="w-full border p-2 mb-2"
-        />
-        <input
-          type="datetime-local"
-          value={end}
-          onChange={(e) => setEnd(e.target.value)}
-          className="w-full border p-2 mb-4"
-        />
-        <div className="flex justify-end gap-2">
-          <button onClick={onClose} className="px-3 py-1 bg-gray-300 rounded">
-            취소
-          </button>
-          <button
-            onClick={submitTodo}
-            className="px-3 py-1 bg-blue-500 text-white rounded"
-          >
-            저장
-          </button>
+    <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
+      <div className="bg-white p-6 rounded-xl shadow">
+        <TodoHour isHourOpen={isHourOpen} />
+        <div>
+          <input type="number" defaultValue={today.slice(11, 15)}></input>
+          <input type="text" defaultValue={today.slice(4, 7)}></input>
+          <input type="number" defaultValue={today.slice(8, 10)}></input>
         </div>
+        <div>
+          Start<button onClick={() => setIsHourOpen(true)}>시간</button>{' '}
+          <button>분</button>
+        </div>
+        <div>
+          End<button onClick={() => setIsHourOpen(true)}>시간</button>{' '}
+          <button>분</button>
+        </div>
+        <button className="mt-4">저장</button>
+        <button className="mt-4" onClick={onClose}>
+          취소
+        </button>
       </div>
     </div>
   );
