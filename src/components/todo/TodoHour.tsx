@@ -1,13 +1,18 @@
-function TodoHour({ isHourOpen }: { isHourOpen: boolean }) {
-  if (!isHourOpen) return null;
-
+function TodoHour({ hourSelected }: { hourSelected: (hour: string) => void }) {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
       <div className="bg-white p-6 rounded-xl shadow">
         <div>
           <div>
             {Array.from({ length: 10 }, (_, i) => (
-              <button key={i}>{(i + 7).toString().padStart(2, '0')}</button>
+              <button
+                key={i}
+                onClick={() =>
+                  hourSelected((i + 7).toString().padStart(2, '0'))
+                }
+              >
+                {(i + 7).toString().padStart(2, '0')}
+              </button>
             ))}
           </div>
           <div>
