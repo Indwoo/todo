@@ -12,10 +12,19 @@ export default function TodoModal({
 
   const today = Date();
   const [isHourOpen, setIsHourOpen] = useState(false);
-  const [selectedHour, setSelectedHour] = useState('시간');
+  const [selectedStartHour, setSelectedStartHour] = useState('시간');
+  const [selectedEndHour, setSelectedEndHour] = useState('시간');
+  const [selectedHour, setSelectedHour] = useState<'start' | 'end' | null>(
+    null,
+  );
 
   const handleSelectedHour = (hour: string) => {
-    setSelectedHour(hour);
+    if (selectedHour == 'start') {
+      setSelectedStartHour(hour);
+    } else if (selectedHour == 'end') {
+      setSelectedEndHour(hour);
+    }
+    setSelectedHour(null);
     setIsHourOpen(false);
   };
 
@@ -29,14 +38,27 @@ export default function TodoModal({
           <input type="number" defaultValue={today.slice(8, 10)}></input>
         </div>
         <div>
-          Start
-          <button onClick={() => setIsHourOpen(true)}>
-            {selectedHour}
+          Start :
+          <button
+            onClick={() => {
+              setIsHourOpen(true);
+              setSelectedHour('start');
+            }}
+          >
+            {selectedStartHour}
           </button>{' '}
           <button>분</button>
         </div>
         <div>
-          End<button onClick={() => setIsHourOpen(true)}>시간</button>{' '}
+          End :
+          <button
+            onClick={() => {
+              setIsHourOpen(true);
+              setSelectedHour('end');
+            }}
+          >
+            {selectedEndHour}
+          </button>{' '}
           <button>분</button>
         </div>
         <button className="mt-4">저장</button>
