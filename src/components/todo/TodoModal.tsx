@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import TodoHour from './TodoHour';
+import TodoMinute from './TodoMinute';
 
 export default function TodoModal({
   isOpen,
@@ -12,6 +13,7 @@ export default function TodoModal({
 
   const today = Date();
   const [isHourOpen, setIsHourOpen] = useState(false);
+  const [isMinuteOpen, setIsMinuteOpen] = useState(false);
   const [selectedStartHour, setSelectedStartHour] = useState('시간');
   const [selectedEndHour, setSelectedEndHour] = useState('시간');
   const [selectedHour, setSelectedHour] = useState<'start' | 'end' | null>(
@@ -26,12 +28,14 @@ export default function TodoModal({
     }
     setSelectedHour(null);
     setIsHourOpen(false);
+    setIsMinuteOpen(false);
   };
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
       <div className="bg-white p-6 rounded-xl shadow">
         {isHourOpen && <TodoHour hourSelected={handleSelectedHour} />}
+        {isMinuteOpen && <TodoMinute minuteSelected={handleSelectedHour} />}
         <div>
           <input type="number" defaultValue={today.slice(11, 15)}></input>
           <input type="text" defaultValue={today.slice(4, 7)}></input>
@@ -47,7 +51,7 @@ export default function TodoModal({
           >
             {selectedStartHour}
           </button>{' '}
-          <button>분</button>
+          <button onClick={() => setIsMinuteOpen(true)}>분</button>
         </div>
         <div>
           End :
