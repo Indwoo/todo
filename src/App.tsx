@@ -1,6 +1,6 @@
 import Calendar from './components/calendar/Calendar';
 import Study from './components/studytime/Study';
-import Todo from './components/todo/Todo';
+import TodoModalContainer from './components/todo/TodoModalContainer';
 import Nav from './components/topnav/Nav';
 
 function App() {
@@ -18,9 +18,7 @@ function App() {
         </main>
       </div>
       <div className="flex flex-col grow-[2] basis-0 border-l border-gray-300 bg-white">
-        <div className="flex-1 p-4">
-          <Todo />
-        </div>
+        <TodoModalContainer />
       </div>
     </div>
   );
